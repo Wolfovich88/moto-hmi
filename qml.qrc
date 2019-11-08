@@ -1,0 +1,25 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>Page1Form.qml</file>
+        <file>Page2Form.qml</file>
+        <file>qtquickcontrols2.conf</file>
+        <file>Page3Form.qml</file>
+        <file>Page4Form.qml</file>
+        <file>assets/logo.png</file>
+        <file>assets/dots.png</file>
+        <file>assets/map.png</file>
+        <file>assets/map-eco-couching.png</file>
+        <file>assets/menu_big.png</file>
+        <file>assets/menu_tiny.png</file>
+        <file>assets/routing.png</file>
+        <file>RowMenu.qml</file>
+        <file>HackButton.qml</file>
+        <file>assets/avatar.png</file>
+        <file>assets/graphics.png</file>
+        <file>assets/vr.png</file>
+        <file>assets/voice_wave.gif</file>
+        <file>assets/socials.png</file>
+        <file>HmiMap.qml</file>
+    </qresource>
+</RCC>
