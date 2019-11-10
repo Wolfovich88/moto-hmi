@@ -163,7 +163,7 @@ Item {
             model: routeModel
             delegate: MapRoute {
                 route: routeData
-                line.color: "green"
+                line.color: "lightgreen"
                 line.width: 5
                 smooth: true
             }
@@ -172,8 +172,8 @@ Item {
         MapQuickItem {
             id: myPositionMarker
 
-            anchorPoint.x: -image.width/2
-            anchorPoint.y: -image.height/2
+            anchorPoint.x: image.width/2
+            anchorPoint.y: image.height/2
             coordinate: currentPosition
 
             sourceItem: Image {
@@ -188,7 +188,7 @@ Item {
             id: destinationPositionMarker
 
             visible: routeModel.count > 0
-            anchorPoint.x: image2.width/4
+            anchorPoint.x: image2.width/2
             anchorPoint.y: image2.height
 
             sourceItem: Image {

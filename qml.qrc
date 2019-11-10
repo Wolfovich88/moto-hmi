@@ -23,5 +23,7 @@
         <file>HmiMap.qml</file>
         <file>assets/mao-new.png</file>
         <file>Dialogs/MapSearchDialog.qml</file>
+        <file>assets/bike.png</file>
+        <file>assets/marker.png</file>
     </qresource>
 </RCC>
