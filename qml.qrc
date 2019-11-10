@@ -26,5 +26,25 @@
         <file>assets/bike.png</file>
         <file>assets/marker.png</file>
         <file>Components/ColoredImage.qml</file>
+        <file>Components/HmiMediaPlayer.qml</file>
+        <file>Page5Form.qml</file>
+        <file>assets/media/album-cover.jpg</file>
+        <file>assets/media/icons/bluetooth.png</file>
+        <file>assets/media/icons/cart.png</file>
+        <file>assets/media/icons/cloud.png</file>
+        <file>assets/media/icons/favorite.png</file>
+        <file>assets/media/icons/filter.png</file>
+        <file>assets/media/icons/folder.png</file>
+        <file>assets/media/icons/message.png</file>
+        <file>assets/media/icons/music.png</file>
+        <file>assets/media/icons/next.png</file>
+        <file>assets/media/icons/pause.png</file>
+        <file>assets/media/icons/power.png</file>
+        <file>assets/media/icons/previous.png</file>
+        <file>assets/media/icons/repeat.png</file>
+        <file>assets/media/icons/save.png</file>
+        <file>assets/media/icons/settings.png</file>
+        <file>assets/media/icons/shuffle.png</file>
+        <file>assets/media/icons/stop.png</file>
     </qresource>
 </RCC>

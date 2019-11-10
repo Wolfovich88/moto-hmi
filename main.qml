@@ -26,6 +26,9 @@ ApplicationWindow {
         }
         Page4Form {
         }
+        Page5Form {
+
+        }
     }
 
     Rectangle {
@@ -110,6 +113,9 @@ ApplicationWindow {
             }
             ListElement {
                 text: qsTr("Profile")
+            }
+            ListElement {
+                text: qsTr("Media")
             }
         }
 
