@@ -22,5 +22,6 @@
         <file>assets/socials.png</file>
         <file>HmiMap.qml</file>
         <file>assets/mao-new.png</file>
+        <file>Dialogs/MapSearchDialog.qml</file>
     </qresource>
 </RCC>
