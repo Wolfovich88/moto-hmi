@@ -6,41 +6,6 @@ import QtPositioning 5.6
 
 Page {
 
-    Plugin {
-        id: mapPlugin
-        //name: "osm"
-        name: "mapboxgl"
-        //name: "esri"
-        // specify plugin parameters if necessary
-        // PluginParameter {
-        //     name:
-        //     value:
-        // }
-    }
-
-    RouteModel {
-        id: routeModel
-        plugin: mapPlugin
-        query:  RouteQuery {
-            id: routeQuery
-        }
-        onStatusChanged: {
-            if (status == RouteModel.Ready) {
-                console.debug("Route created: " + count)
-                switch (count) {
-                case 0:
-                    console.debug("Route error!")
-                    break
-                case 1:
-                     console.debug("Route ready!")
-                    break
-                }
-            } else {
-                console.debug("Route error!")
-            }
-        }
-    }
-
     HmiMap {
         id: map
         anchors.fill: parent
@@ -60,7 +25,7 @@ Page {
         }
 
         text: currentSpeed + " km/h"
-        color: "white"
+        color: "black"
         font.pixelSize: 60
         font.bold: true
     }
@@ -90,6 +55,23 @@ Page {
         }
     }
 
+    TextEdit {
+        width: 300
+        height: 80
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: parent.top
+        text: ""
+        font.family: "Helvetica"
+        font.pointSize: 20
+        color: "blue"
+        focus: true
+
+        onTextChanged: {
+            map.createRoute2()
+        }
+    }
+
+
     RowMenu {
         anchors {
             horizontalCenter: parent.horizontalCenter
@@ -99,19 +81,10 @@ Page {
 
         model: ObjectModel {
             HackButton {
-                text: "Map"
-                checked: true
+                text: "Search"
 
                 onClicked: {
-                    map.clearRoute()
-                }
-            }
-
-            HackButton {
-                text: "Routing"
-
-                onClicked: {
-                     map.createRoute()
+                    map.createRoute2()
                 }
             }
         }

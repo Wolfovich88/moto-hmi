@@ -31,6 +31,8 @@ ApplicationWindow {
     Rectangle {
         id: vrButton
 
+        visible: false
+
         anchors {
             left: parent.left
             bottom: parent.bottom

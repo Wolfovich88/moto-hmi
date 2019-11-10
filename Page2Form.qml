@@ -7,7 +7,7 @@ Page {
     Image {
         id: eco
         anchors.fill: parent
-        source: "assets/map-eco-couching.png"
+        source: "assets/mao-new.png"
     }
 
     RowMenu {
