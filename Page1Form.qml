@@ -19,38 +19,39 @@ Page {
 
         anchors {
             bottom: parent.bottom
-            left: parent.left
-            bottomMargin: 10
-            leftMargin: 10
+            right: speedLimitItem.left
+            bottomMargin: 15
+            rightMargin: 15
         }
 
         text: currentSpeed + " km/h"
-        color: "black"
+        color: "lightgrey"
         font.pixelSize: 60
         font.bold: true
     }
 
     Rectangle {
+        id: speedLimitItem
 
         anchors {
             right: parent.right
             bottom:parent.bottom
-            rightMargin: 20
-            bottomMargin: 20
+            rightMargin: 15
+            bottomMargin: 15
         }
 
-        width: 100
-        height: 100
+        width: 70
+        height: 70
         radius: width * 0.5
 
         border.width: 10
         border.color: "red"
 
         Text {
-            id: speedLimit
+            id: speedLimitText
             anchors.centerIn: parent
             text: qsTr("60")
-            font.pointSize: 40
+            font.pointSize: 24
             font.bold: true
         }
     }

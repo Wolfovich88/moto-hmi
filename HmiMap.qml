@@ -2,6 +2,9 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtLocation 5.6
 import QtPositioning 5.6
+import QtGraphicalEffects 1.1
+
+import "./Components"
 
 Item {
     width: 512
@@ -58,13 +61,6 @@ Item {
         console.debug("Clear route")
         routeModel.query.clearWaypoints()
         routeModel.reset()
-    }
-
-    Address {
-        id: currentAddress
-        street: "24 Салганская"
-        city: "Нижний Новгород"
-        country: "Россия"
     }
 
     Address {
@@ -140,20 +136,18 @@ Item {
     Map {
         id: map
 
+        property bool nightMode: true
+
         anchors.fill: parent
         plugin: mapPlugin
         center: QtPositioning.coordinate(latitude, longitude)
         zoomLevel: 12
+        activeMapType: nightMode ? supportedMapTypes[3] : supportedMapTypes[2]
 
-        MapItemView {
-            model: geocodeModel
-            delegate: MapQuickItem {
-                width: 10
-                height: 10
-                sourceItem: Rectangle {
-                    width: 10
-                    height: 10
-                }
+        Component.onCompleted: {
+            console.debug("MapTypes: " + supportedMapTypes)
+            for (var i = 0; i<map.supportedMapTypes.length; i++) {
+                console.debug("MapType: " +i + " " + map.supportedMapTypes[i].name)
             }
         }
 
@@ -176,10 +170,12 @@ Item {
             anchorPoint.y: image.height/2
             coordinate: currentPosition
 
-            sourceItem: Image {
+            sourceItem: ColoredImage {
                 id: image
+
                 width: 40
                 height: 40
+                color: map.nightMode ? "lightgrey" : "black"
                 source: "assets/bike.png"
             }
         }
@@ -191,59 +187,46 @@ Item {
             anchorPoint.x: image2.width/2
             anchorPoint.y: image2.height
 
-            sourceItem: Image {
+            sourceItem: ColoredImage {
                 id: image2
+
                 width: 30
                 height: 30
                 source: "assets/marker.png"
+                color: map.nightMode ? "lightgrey" : "black"
             }
         }
     }
 
     // Search text InputMethod
 
-    Rectangle {
-        id: searchItem
-        anchors.top: parent.top
+    TextInput {
+        id: addressText
         anchors.left: parent.left
-        anchors.right: parent.right
+        anchors.right: clearBtn.left
         anchors.margins: 5
-        color: "transparent"
-        border.color: "black"
-        border.width: 1
+        anchors.top: parent.top
+        font.family: "Helvetica"
+        font.pointSize: 20
+        color:map.nightMode ? "lightblue" : "blue"
+        onAccepted: { searchPlace(addressText.text) }
+    }
 
-        height: 50
+    Button {
+        id: clearBtn
 
-        TextInput {
-            id: addressText
-            anchors.left: parent.left
-            anchors.right: clearBtn.left
-            anchors.rightMargin: 7
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
-            font.family: "Helvetica"
-            font.pointSize: 20
-            color: "blue"
-            onAccepted: { searchPlace(addressText.text) }
-        }
+        visible: routeModel.count > 0
+        height: addressText.height
+        width: visible ? 2*height : 0
+        anchors.right: parent.right
+        anchors.top: parent.top
+        anchors.margins: 5
 
-        Button {
-            id: clearBtn
+        text: "Clear"
 
-            visible: routeModel.count > 0
-            height: parent.height
-            width: visible ? height : 0
-            anchors.right: parent.right
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
-            anchors.margins: 2
-
-            text: "Clear"
-
-            onClicked: {
-                addressText.text = ""
-                clearRoute()
-            }
+        onClicked: {
+            addressText.text = ""
+            clearRoute()
         }
     }
 }

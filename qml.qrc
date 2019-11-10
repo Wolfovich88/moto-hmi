@@ -25,5 +25,6 @@
         <file>Dialogs/MapSearchDialog.qml</file>
         <file>assets/bike.png</file>
         <file>assets/marker.png</file>
+        <file>Components/ColoredImage.qml</file>
     </qresource>
 </RCC>

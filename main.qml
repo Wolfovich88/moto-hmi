@@ -31,7 +31,7 @@ ApplicationWindow {
     Rectangle {
         id: vrButton
 
-        visible: false
+        visible: true
 
         anchors {
             left: parent.left
@@ -53,7 +53,6 @@ ApplicationWindow {
 
         MouseArea {
             anchors.fill: parent
-
             onClicked: vrLoader.active = true
         }
     }
