@@ -28,6 +28,10 @@ Page {
         color: "lightgrey"
         font.pixelSize: 60
         font.bold: true
+
+        onCurrentSpeedChanged: {
+            _hmiController.setRPMValue(currentSpeed);
+        }
     }
 
     Rectangle {
