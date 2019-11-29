@@ -11,9 +11,26 @@ Item {
     height: 512
     visible: true
 
-    property real latitude: 56.3043872
-    property real longitude: 44.018332
-    property var currentPosition:  QtPositioning.coordinate(latitude, longitude)
+    property real defLatitude: 56.3043872 //src.position.coordinate
+    property real defLongitude: 44.018332 //src.position.coordinate
+    property var currentCoordinate: (src.position.latitudeValid && src.position.longitudeValid)
+                                    ? src.position.coordinate : QtPositioning.coordinate(defLatitude, defLongitude)
+    property real speed: src.position.speed
+    property bool speedValid: src.position.speedValid
+
+    PositionSource {
+        id: src
+        updateInterval: 1000
+        active: true
+
+        onPositionChanged: {
+            var coord = src.position.coordinate;
+            if (src.position.latitudeValid && src.position.longitudeValid)
+            {
+                console.log("Coordinate:", coord.longitude, coord.latitude, " speed: ", src.position.speed);
+            }//TODO: write to file
+        }
+    }
 
     function createRoute3(point1, point2)
     {
@@ -118,7 +135,7 @@ Item {
                 if (count > 0) {
                     var coord = get(0).coordinate
                     destinationPositionMarker.coordinate = coord
-                    createRoute3(QtPositioning.coordinate(latitude, longitude), coord)
+                    createRoute3(currentCoordinate, coord)
                 }
             }
             else if(status == GeocodeModel.Error)
@@ -140,7 +157,7 @@ Item {
 
         anchors.fill: parent
         plugin: mapPlugin
-        center: QtPositioning.coordinate(latitude, longitude)
+        center: currentCoordinate
         zoomLevel: 12
         activeMapType: nightMode ? supportedMapTypes[3] : supportedMapTypes[2]
 
@@ -168,7 +185,7 @@ Item {
 
             anchorPoint.x: image.width/2
             anchorPoint.y: image.height/2
-            coordinate: currentPosition
+            coordinate: currentCoordinate
 
             sourceItem: ColoredImage {
                 id: image

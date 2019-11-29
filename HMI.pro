@@ -2,6 +2,8 @@ QT += quick virtualkeyboard
 
 CONFIG += c++11
 QT += location
+QT += positioning
+QT += bluetooth
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings

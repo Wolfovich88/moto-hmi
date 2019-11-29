@@ -29,6 +29,9 @@ ApplicationWindow {
         Page5Form {
 
         }
+        Page6Form {
+
+        }
     }
 
     Rectangle {
@@ -116,6 +119,9 @@ ApplicationWindow {
             }
             ListElement {
                 text: qsTr("Media")
+            }
+            ListElement {
+                text: qsTr("Connections")
             }
         }
 

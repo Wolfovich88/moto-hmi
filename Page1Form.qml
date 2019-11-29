@@ -14,7 +14,7 @@ Page {
     Text {
         id: speedText
 
-        property int currentSpeed: 50
+        property int currentSpeed: !map.speedValid ? 50 : map.speed
         property bool isIncrease: true
 
         anchors {
@@ -63,7 +63,7 @@ Page {
     Timer {
         interval: 200
         repeat: true
-        running: true
+        running: !map.speedValid
 
         onTriggered: {
             if (speedText.isIncrease && speedText.currentSpeed < 70) {

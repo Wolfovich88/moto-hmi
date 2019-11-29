@@ -45,5 +45,7 @@
         <file>assets/media/icons/settings.png</file>
         <file>assets/media/icons/shuffle.png</file>
         <file>assets/media/icons/stop.png</file>
+        <file>Page6Form.qml</file>
+        <file>assets/default.png</file>
     </qresource>
 </RCC>
