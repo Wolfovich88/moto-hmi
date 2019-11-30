@@ -13,7 +13,7 @@ Page {
     ListModel {
         id: btModelFake
         ListElement {
-            deviceName: "JBL pbx"
+            deviceName: "JBL Endurance DIVE"
             service: false
             serviceName: "service 1"
             deviceAddress: "33:44:55:66"
@@ -21,7 +21,7 @@ Page {
         }
 
         ListElement {
-            deviceName: "JBL charge 3"
+            deviceName: "JBL Xtreme 2"
             service: false
             serviceName: "service 2"
             deviceAddress: "34:45:56:67"
@@ -65,7 +65,10 @@ Page {
 
                 Text {
                     id: bttext
-                    text: deviceName + (btDelegate.paired ? " paired" : "")
+
+                    property string secondaryText: " unpaired"
+
+                    text: deviceName + secondaryText
                     height: parent.height
                     font.family: "FreeSerif"
                     font.pointSize: 16
@@ -93,18 +96,21 @@ Page {
             MouseArea {
                 id: mouseArea
                 anchors.fill: parent
-                onClicked: btDelegate.paired = !btDelegate.paired
+                onClicked: {
+                    bttext.secondaryText = !btDelegate.paired ? " pairing ..." : " unpairing ..."
+                    pairTmr.start()
+                }
                 onPressed: { release.stop(); press.start(); }
                 onReleased: { press.stop(); release.start(); }
             }
 
             Timer {
-                interval: 1500
-                repeat: false
-                running: false
+                id: pairTmr
 
+                interval: 1500
                 onTriggered: {
                     btDelegate.paired = !btDelegate.paired
+                    bttext.secondaryText = btDelegate.paired ? " paired" : " unpaired"
                 }
             }
         }

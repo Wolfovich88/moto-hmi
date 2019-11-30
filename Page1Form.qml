@@ -6,6 +6,10 @@ import QtPositioning 5.6
 
 Page {
 
+    function searchPlace(addr) {
+        map.searchPlace(addr)
+    }
+
     HmiMap {
         id: map
         anchors.fill: parent

@@ -18,17 +18,32 @@ Item {
     property real speed: src.position.speed
     property bool speedValid: src.position.speedValid
 
+    function coordsValid()
+    {
+        return src.position.latitudeValid && src.position.longitudeValid
+    }
+
     PositionSource {
         id: src
-        updateInterval: 1000
+        updateInterval: 200
         active: true
+
+        Component.onCompleted: {
+            if (coordsValid())
+                _hmiController.startGeodataWriting()
+        }
+
+        Component.onDestruction: {
+            _hmiController.stopGeodataWriting()
+        }
 
         onPositionChanged: {
             var coord = src.position.coordinate;
-            if (src.position.latitudeValid && src.position.longitudeValid)
+            if (coordsValid())
             {
-                console.log("Coordinate:", coord.longitude, coord.latitude, " speed: ", src.position.speed);
-            }//TODO: write to file
+                console.debug("Coordinate:", coord.longitude, coord.latitude, " speed: ", src.position.speed);
+                _hmiController.writeToGeodata(coord.latitude, coord.longitude, src.position.speed)
+            }
         }
     }
 
@@ -135,6 +150,7 @@ Item {
                 if (count > 0) {
                     var coord = get(0).coordinate
                     destinationPositionMarker.coordinate = coord
+                    sourcePositionMarker.coordinate = currentCoordinate
                     createRoute3(currentCoordinate, coord)
                 }
             }
@@ -153,7 +169,7 @@ Item {
     Map {
         id: map
 
-        property bool nightMode: true
+        property bool nightMode: false
 
         anchors.fill: parent
         plugin: mapPlugin
@@ -198,7 +214,7 @@ Item {
         }
 
         MapQuickItem {
-            id: destinationPositionMarker
+            id: sourcePositionMarker
 
             visible: routeModel.count > 0
             anchorPoint.x: image2.width/2
@@ -206,6 +222,23 @@ Item {
 
             sourceItem: ColoredImage {
                 id: image2
+
+                width: 30
+                height: 30
+                source: "assets/marker.png"
+                color: "red"
+            }
+        }
+
+        MapQuickItem {
+            id: destinationPositionMarker
+
+            visible: routeModel.count > 0
+            anchorPoint.x: image3.width/2
+            anchorPoint.y: image3.height
+
+            sourceItem: ColoredImage {
+                id: image3
 
                 width: 30
                 height: 30

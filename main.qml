@@ -17,6 +17,7 @@ ApplicationWindow {
         currentIndex: tabBar.currentIndex
 
         Page1Form {
+            id: form1
         }
 
         Page2Form {
@@ -59,7 +60,7 @@ ApplicationWindow {
 
         MouseArea {
             anchors.fill: parent
-            onClicked: vrLoader.active = true
+            onClicked: vrLoader.sourceComponent = vrAnimatedImage
         }
     }
 
@@ -67,18 +68,88 @@ ApplicationWindow {
         id: vrLoader
 
         anchors.fill: parent
-        active: false
+    }
 
-        sourceComponent: AnimatedImage {
+    Component {
+        id: vrAnimatedImage
+
+        AnimatedImage {
             source: "assets/voice_wave.gif"
 
             MouseArea {
                 anchors.fill: parent
-                onClicked: vrLoader.active = false
+                onClicked: vrLoader.sourceComponent = vrResultPopup
             }
         }
     }
 
+    Component {
+        id: vrResultPopup
+
+        Rectangle {
+            width: 400
+            height: 400
+            color: "grey"
+            anchors.centerIn: parent
+
+            Text {
+                id: label
+                text: qsTr("Нижний Новгород, Ковалихинская 8")
+                wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+                anchors.centerIn: parent
+                font.pointSize: 16
+            }
+
+            Row{
+                anchors.bottom: parent.bottom
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.bottomMargin: 10
+                spacing: 10
+
+                Button {
+                    text: "OK"
+                    width: 200
+                    height: 80
+                    font.pointSize: 16
+
+                    onClicked: {
+                        form1.searchPlace("Ковалихинская 8")
+                        vrLoader.sourceComponent = null
+                    }
+
+                    Rectangle {
+                        anchors.fill: parent
+                        border.color: "black"
+                        border.width: 1
+                        color: "transparent"
+                    }
+                }
+
+                Button {
+                    text: "Cancel"
+                    width: 200
+                    height: 80
+                    font.pointSize: 16
+
+                    onClicked: vrLoader.sourceComponent = null
+
+                    Rectangle {
+                        anchors.fill: parent
+                        border.color: "black"
+                        border.width: 1
+                        color: "transparent"
+                    }
+                }
+            }
+        }
+    }
+
+    Timer {
+        interval: 4000;
+        running: false;
+        repeat: false
+        onTriggered: vrLoader.sourceComponent = null
+    }
     Image {
         id: menuBackground
         width: 130
